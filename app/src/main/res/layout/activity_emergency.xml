@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="smartindia.santas.amd.smartindia.santas.amd.activities.EmergencyActivity">
+    tools:context="dz.univoran.amd.smartindia.santas.amd.activities.EmergencyActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

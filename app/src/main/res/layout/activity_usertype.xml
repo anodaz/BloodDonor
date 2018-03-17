@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="smartindia.santas.amd.smartindia.santas.amd.activities.UserTypeActivity"
+    tools:context="dz.univoran.amd.smartindia.santas.amd.activities.UserTypeActivity"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:padding="5dp"

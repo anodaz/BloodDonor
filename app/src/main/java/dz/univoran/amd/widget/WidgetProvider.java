@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 import static android.content.Context.MODE_PRIVATE;
 

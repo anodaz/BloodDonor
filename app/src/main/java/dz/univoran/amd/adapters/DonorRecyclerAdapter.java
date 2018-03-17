@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import dz.univoran.amd.objects.Donor;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 /**
  * Created by adityadesai on 01/04/17.

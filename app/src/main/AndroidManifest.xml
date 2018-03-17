@@ -120,10 +120,6 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget" />
         </receiver>
-        <activity android:name="dz.univoran.amd.activities.EmergencyActivity"
-            android:parentActivityName="dz.univoran.amd.activities.MainActivity"
-            android:label="Emergency"
-            android:theme="@style/AppTheme"/>
         <activity android:name="dz.univoran.amd.activities.AboutActivity">
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme"

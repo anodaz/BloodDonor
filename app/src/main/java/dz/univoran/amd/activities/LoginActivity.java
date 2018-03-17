@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 /**
  * Created by DELL on 31/03/2017.

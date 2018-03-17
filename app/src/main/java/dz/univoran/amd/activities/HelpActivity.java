@@ -13,7 +13,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 
 public class HelpActivity extends AppCompatActivity {

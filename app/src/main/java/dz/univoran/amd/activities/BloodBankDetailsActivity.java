@@ -28,12 +28,7 @@ public class BloodBankDetailsActivity extends AppCompatActivity implements Adapt
     EditText bloodQuantity;
     Button submitBloodQuantity;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    DatabaseReference quantityDatabaseReference;
-    ValueEventListener valueEventListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,112 +79,11 @@ public class BloodBankDetailsActivity extends AppCompatActivity implements Adapt
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("users");
 
         final Intent i = getIntent();
         String name = i.getStringExtra("name");
         String location = i.getStringExtra("location");
-        if(!i.getStringExtra("coordinates").equals("")){
-            bloodGroupTextView.setVisibility(View.GONE);
-            spinner.setVisibility(View.GONE);
-            bloodQuantity.setVisibility(View.GONE);
-            submitBloodQuantity.setVisibility(View.GONE);
-            bbName.setText(name);
-            bbLocation.setText(location);
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        if(snapshot.child("isBloodBank").getValue().toString().equals("true")){
-                            String coord = (String)snapshot.child("details").child("lat").child("latitude").getValue().toString() + " " + (String)snapshot.child("details").child("lat").child("longitude").getValue().toString();
-                            if(coord.equals(i.getStringExtra("coordinates"))){
-                                Log.v("tag","selected");
-                                if(snapshot.child("details").hasChild("O+")){
-                                    opos.setText(snapshot.child("details").child("O+").getValue().toString());
-                                }
-                                if(snapshot.child("details").hasChild("O-")){
-                                    oneg.setText(snapshot.child("details").child("O-").getValue().toString());
-                                }
-                                if(snapshot.child("details").hasChild("A+")){
-                                    apos.setText(snapshot.child("details").child("A+").getValue().toString());
-                                }
-                                if(snapshot.child("details").hasChild("A-")){
-                                    aneg.setText(snapshot.child("details").child("A-").getValue().toString());
-                                }
-                                if(snapshot.child("details").hasChild("B+")){
-                                    bpos.setText(snapshot.child("details").child("B+").getValue().toString());
-                                }
-                                if(snapshot.child("details").hasChild("B-")){
-                                    bneg.setText(snapshot.child("details").child("B-").getValue().toString());
-                                }
-                                if(snapshot.child("details").hasChild("AB+")){
-                                    abpos.setText(snapshot.child("details").child("AB+").getValue().toString());
-                                }
-                                if(snapshot.child("details").hasChild("AB-")){
-                                    abneg.setText(snapshot.child("details").child("AB-").getValue().toString());
-                                }
-                            }
-                        }
-                    }
-                    updateColour(opos);
-                    updateColour(oneg);
-                    updateColour(apos);
-                    updateColour(aneg);
-                    updateColour(bpos);
-                    updateColour(bneg);
-                    updateColour(abpos);
-                    updateColour(abneg);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
-        else {
-            bbName.setVisibility(View.GONE);
-            bbLocation.setVisibility(View.GONE);
-            databaseReference.child(user.getUid()).child("details").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        if(snapshot.getKey().equals("O+")){
-                            opos.setText(snapshot.getValue().toString());
-                        }
-                        else if(snapshot.getKey().equals("O-")){
-                            oneg.setText(snapshot.getValue().toString());
-                        }
-                        else if(snapshot.getKey().equals("A+")){
-                            apos.setText(snapshot.getValue().toString());
-                        }
-                        else if(snapshot.getKey().equals("A-")){
-                            aneg.setText(snapshot.getValue().toString());
-                        }
-                        else if(snapshot.getKey().equals("B+")){
-                            bpos.setText(snapshot.getValue().toString());
-                        }
-                        else if(snapshot.getKey().equals("B-")){
-                            bneg.setText(snapshot.getValue().toString());
-                        }
-                        else if(snapshot.getKey().equals("AB+")){
-                            abpos.setText(snapshot.getValue().toString());
-                        }
-                        else if(snapshot.getKey().equals("AB-")){
-                            abneg.setText(snapshot.getValue().toString());
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
 
     public void updateColour(TextView tv){
@@ -239,49 +133,6 @@ public class BloodBankDetailsActivity extends AppCompatActivity implements Adapt
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
 
-    }
-
-    public void update_blood_details(View view)
-    {
-        String units = bloodQuantity.getText().toString();
-        String choice=item;
-        for(int i=0; i<8; i++)
-        {
-            if(categories.get(i).equals(choice.toString()))
-            {
-                quantityDatabaseReference = databaseReference.child(user.getUid()).child("details").child(choice.toString());
-                quantityDatabaseReference.setValue(units);
-
-                switch (choice.toString())
-                {
-                    case "O+":
-                        opos.setText(units);
-                        break;
-                    case "O-":
-                        oneg.setText(units);
-                        break;
-                    case "A+":
-                        apos.setText(units);
-                        break;
-                    case "A-":
-                        aneg.setText(units);
-                        break;
-                    case "B+":
-                        bpos.setText(units);
-                        break;
-                    case "B-":
-                        bneg.setText(units);
-                        break;
-                    case "AB+":
-                        abpos.setText(units);
-                        break;
-                    case "AB-":
-                        abneg.setText(units);
-                        break;
-
-                }
-            }
-        }
     }
 
 

@@ -1,4 +1,4 @@
-package smartindia.santas.amd;
+package dz.univoran.amd;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

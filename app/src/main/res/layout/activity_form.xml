@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="smartindia.santas.amd.smartindia.santas.amd.activities.FormActivity">
+    tools:context="dz.univoran.amd.smartindia.santas.amd.activities.FormActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -12,10 +12,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -49,7 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
                 SharedPreferences pref = getSharedPreferences(Constants.PREFS,MODE_PRIVATE);
                 pref.edit().clear().apply();
                 startActivity(new Intent(SettingsActivity.this,LoginActivity.class));

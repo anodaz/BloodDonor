@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 public class FeedbackActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 

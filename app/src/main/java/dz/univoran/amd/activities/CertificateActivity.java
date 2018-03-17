@@ -23,7 +23,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 public class CertificateActivity extends AppCompatActivity {
     private WebView webView;

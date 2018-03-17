@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import dz.univoran.amd.activities.BloodBankDetailsActivity;
 import dz.univoran.amd.objects.BloodBank;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 public class BloodBankRecyclerAdapter extends RecyclerView.Adapter<BloodBankRecyclerAdapter.BloodBankHolder> {
 

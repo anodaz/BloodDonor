@@ -7,13 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 
 public class UserTypeActivity extends AppCompatActivity {
@@ -21,10 +16,6 @@ public class UserTypeActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     boolean isBloodBank = false;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +23,10 @@ public class UserTypeActivity extends AppCompatActivity {
             setTheme(R.style.AppTheme_Dark);
         setContentView(R.layout.activity_usertype);
 
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-
         final Button b = (Button) findViewById(R.id.Yes);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 isBloodBank = true;
-                push();
                 setsharedpreference();
                 Intent i = new Intent(UserTypeActivity.this, ProfileActivity.class);
                 i.putExtra("isfromsignup",true);
@@ -56,7 +41,6 @@ public class UserTypeActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 isBloodBank = false;
-                push();
                 setsharedpreference();
                 Intent j = new Intent(UserTypeActivity.this, ProfileActivity.class);
                 j.putExtra("isfromsignup",true);
@@ -75,11 +59,7 @@ public class UserTypeActivity extends AppCompatActivity {
 
     }
 
-    public void push(){
-        databaseReference = firebaseDatabase.getReference().child("users").child(user.getUid()).child("isBloodBank");
-        databaseReference.setValue(Boolean.toString(isBloodBank));
 
-    }
 }
 
 

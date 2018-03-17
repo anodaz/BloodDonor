@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import dz.univoran.amd.Constants;
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 public class FormActivity extends AppCompatActivity {
 

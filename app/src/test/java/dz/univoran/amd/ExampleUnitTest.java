@@ -1,4 +1,4 @@
-package smartindia.santas.amd;
+package dz.univoran.amd;
 
 import org.junit.Test;
 

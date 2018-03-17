@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import smartindia.santas.amd.R;
+import dz.univoran.amd.R;
 
 public class ResponseActivity extends AppCompatActivity {
 
