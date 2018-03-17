@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_login);
         user=(AutoCompleteTextView)findViewById(R.id.email);
         pass=(AutoCompleteTextView)findViewById(R.id.password);
+        //good
     }
 
     public void BtClick(View View){
