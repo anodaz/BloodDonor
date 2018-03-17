@@ -55,7 +55,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     private View mProgressText;
     private View mProgressView;
     private View mLoginFormView;
-
+    AutoCompleteTextView user;
+    AutoCompleteTextView pass;
 
     private ProgressDialog dialog;
     boolean check;
@@ -68,15 +69,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        user=(AutoCompleteTextView)findViewById(R.id.email);
+        pass=(AutoCompleteTextView)findViewById(R.id.password);
     }
 
+    public void BtClick(View View){
+        String myurl = "http://192.168.1.3:8080/Admin/Login"  ;
+        new  MyAsyncTaskgetNews().execute(myurl);
 
+    }
     public void nextPage(String data){
         try {
             JSONObject obj = new JSONObject(data);
             if (!obj.getString("id").equals("0")){
-                Intent i = new Intent(this, Home.class);
+                Intent i = new Intent(this, MainActivity.class);
                 Bundle b=new Bundle();
                 b.putString("user",obj.getString("user"));
                 b.putString("pass",obj.getString("pass"));
@@ -85,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 startActivity(i);
                 this.finish();
             }else {
-                stat.setText("The username or password is incorrect.");
+             //   stat.setText("The username or password is incorrect.");
 
             }
 
