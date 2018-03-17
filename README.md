@@ -31,6 +31,6 @@ One blood bank can check/collaborate with other blood banks regarding availabili
 - Generation of Certificate of Appreciation for donors
 
 ## GitHub Link
-https://github.com/TheDorkKnightRises/BloodRelations/
+https://github.com/anodaz/BloodDonor/
 
     
