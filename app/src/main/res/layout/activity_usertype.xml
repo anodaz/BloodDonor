@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="smartindia.santas.amd.smartindia.santas.amd.activities.UserTypeActivity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="5dp"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="285dp"
+        android:layout_height="125dp"
+        android:text="@string/are_you_a_blood_bank"
+        android:gravity="center"
+        android:textSize="25dp"/>
+
+
+    <Button
+        android:id="@+id/Yes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="@string/yes_rb"
+        android:textSize="25dp"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_rb"
+        android:textSize="25dp"
+        android:padding="20dp"
+        android:id="@+id/No"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        />
+
+
+
+</LinearLayout>
