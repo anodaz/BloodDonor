@@ -5,4 +5,5 @@ package dz.univoran.amd.objects;
  */
 
 public class User {
+
 }

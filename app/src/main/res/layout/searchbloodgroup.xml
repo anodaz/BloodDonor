@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <Button
+        android:id="@+id/aplu"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient"
+        android:text="A-"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/aneg"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/gradient"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:text="A+"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bplu"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient"
+        android:text="B-"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aplu" />
+
+    <Button
+        android:id="@+id/bneg"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient"
+        android:text="B+"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aneg" />
+    <Button
+        android:id="@+id/oplu"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient"
+        android:text="O-"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bplu" />
+
+    <Button
+        android:id="@+id/oneg"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient"
+        android:text="O+"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bneg" />
+    <Button
+        android:id="@+id/abplu"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient"
+        android:text="AB-"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/oplu" />
+
+    <Button
+        android:id="@+id/abneg"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient"
+        android:text="AB+"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/oneg" />
+</android.support.constraint.ConstraintLayout>
