@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="dz.univoran.amd.smartindia.santas.amd.activities.SettingsActivity">
+    tools:context="dz.univoran.amd.activities.SettingsActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

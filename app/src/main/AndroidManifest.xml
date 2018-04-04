@@ -32,7 +32,7 @@
             android:resource="@color/colorPrimary" />
 
         <activity
-            android:name="dz.univoran.amd.activities.LoginActivity"
+            android:name="dz.univoran.amd.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="dz.univoran.amd.activities.MainActivity"
+            android:name="dz.univoran.amd.activities.LoginActivity"
             android:theme="@style/AppTheme.Translucent" />
         <activity
             android:name="dz.univoran.amd.activities.SignUpActivity"

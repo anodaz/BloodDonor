@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     private View mLoginFormView;
     AutoCompleteTextView user;
     AutoCompleteTextView pass;
+    TextView stat;
 
     private ProgressDialog dialog;
     boolean check;
@@ -71,11 +73,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_login);
         user=(AutoCompleteTextView)findViewById(R.id.email);
         pass=(AutoCompleteTextView)findViewById(R.id.password);
+        stat=(TextView)findViewById(R.id.notLogin);
         //good
     }
 
     public void BtClick(View View){
-        String myurl = "http://192.168.1.3:8080/Admin/Login"  ;
+        String myurl = "http://192.168.1.9:8080/Admin/Login"  ;
         new  MyAsyncTaskgetNews().execute(myurl);
 
     }
@@ -92,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 startActivity(i);
                 this.finish();
             }else {
-             //   stat.setText("The username or password is incorrect.");
+                stat.setText("The username or password is incorrect.");
 
             }
 
