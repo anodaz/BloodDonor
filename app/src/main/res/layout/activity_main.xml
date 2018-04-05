@@ -52,6 +52,7 @@
                     android:background="#00ffffff"
                     android:drawableTop="@drawable/search"
                     android:text="New Measurement"
+                    android:onClick="btimport"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
