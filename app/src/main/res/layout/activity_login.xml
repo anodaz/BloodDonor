@@ -128,7 +128,6 @@
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
                         android:text="@string/action_sign_in_short"
-                        android:onClick="BtClick"
                         android:textSize="16sp" />
 
                     <TextView
@@ -136,6 +135,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+
                         android:gravity="center"
                         android:text="@string/no_account"
                         android:textSize="16sp" />
@@ -147,6 +147,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
                         android:text="@string/action_sign_up_short"
+                        android:onClick="signup"
                         android:textSize="16sp" />
 
 

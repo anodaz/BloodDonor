@@ -146,11 +146,10 @@
 
                         <ImageButton
                             android:id="@+id/birthday_button"
+                            style="@style/Widget.AppCompat.Button.Borderless.Colored"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/app_icon"
-                            style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+                            android:layout_weight="1" />
 
                     </LinearLayout>
 
