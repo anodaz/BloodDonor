@@ -31,56 +31,56 @@
                 android:background="@color/colorPrimary">
 
                 <Button
-                    android:id="@+id/donor"
+                    android:id="@+id/btcharts"
                     android:layout_width="121dp"
                     android:layout_height="99dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginTop="40dp"
                     android:background="#00ffffff"
                     android:drawableTop="@drawable/become_donor"
-                    android:text="Become A Donor"
+                    android:text="Charts"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/bybloodgrp"
+                    android:id="@+id/btimport"
                     android:layout_width="121dp"
                     android:layout_height="99dp"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="40dp"
                     android:background="#00ffffff"
                     android:drawableTop="@drawable/search"
-                    android:text="Donors By Blood Group"
+                    android:text="New Measurement"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/bloodbank"
+                    android:id="@+id/btemail"
                     android:layout_width="121dp"
                     android:layout_height="99dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginTop="40dp"
                     android:background="#00ffffff"
                     android:drawableTop="@drawable/bloodbank"
-                    android:text="Blood Banks"
+                    android:text="E-mail"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/donor" />
+                    app:layout_constraintTop_toBottomOf="@+id/btcharts" />
 
                 <Button
-                    android:id="@+id/profil"
+                    android:id="@+id/bthistory"
                     android:layout_width="121dp"
                     android:layout_height="99dp"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="40dp"
                     android:background="#00ffffff"
                     android:drawableTop="@drawable/user"
-                    android:text="My Profile"
+                    android:text="History"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/donor" />
+                    app:layout_constraintTop_toBottomOf="@+id/btimport" />
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/slidShow"
@@ -111,7 +111,6 @@
         app:insetForeground="@android:color/transparent"/>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/donorbybloodbnk"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

@@ -103,6 +103,18 @@ public class MainActivity extends AppCompatActivity {
         header_subtext.setText("anodaz@yahoo.com");
 
     }
+    public void btimport(View view){
+        Intent i = new Intent(MainActivity.this, SelectBloodGroup.class);
+        startActivity(i);
+        /*    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+*/
+    }
     private void setupDrawer(){
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -150,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     public class AdaptPage extends PagerAdapter{
         private Context context;
         private LayoutInflater layoutInflater;

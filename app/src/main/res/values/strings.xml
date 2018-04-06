@@ -97,8 +97,6 @@
     <string name="language_settings">Currently only English and Hindi are supported</string>
 
 
-
-
     <string name="license_aosp" translatable="false">
         Copyright © 2011 The Android Open Source Project
 
@@ -161,4 +159,5 @@
     <string name="form_verify">Please go to your nearest blood bank to verify that you are fit for donating</string>
     <string name="take_to_map">Take me to the map</string>
     <string name="blacklist">Sorry you are unfit to donate blood. Please visit the nearest blood bank for further checks and advice</string>
+    <string name="title_activity_select_blood_group">Select Blood Group</string>
 </resources>
