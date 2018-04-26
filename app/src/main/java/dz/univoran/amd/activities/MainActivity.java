@@ -222,6 +222,11 @@ Button b1;
         startActivity(i);
     }
 
+    public void bloodbank(View view) {
+        Intent i = new Intent(this, BloodBankActivity.class);
+        startActivity(i);
+    }
+
     public class AdaptPage extends PagerAdapter{
         private Context context;
         private LayoutInflater layoutInflater;
