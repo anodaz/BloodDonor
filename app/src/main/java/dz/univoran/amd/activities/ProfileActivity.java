@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,16 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -29,157 +41,175 @@ import dz.univoran.amd.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private static final int RC_PHOTO_PICKER = 1;
-    int PLACE_PICKER_REQUEST = 2;
+    private TextView Name,Email,Address,Phone,DOB,Sex,Group;
+    String user_id,username,password;
+    private Button retour;
 
-    //private FloatingActionButton profileEditDone;
-    private FloatingActionButton locateFab;
-
-    private TextInputLayout profileName;
-    private TextInputLayout profileSurname;
-    private TextInputLayout profilePhone;
-    private TextInputLayout profileBloodGroup;
-    private TextInputLayout profileAddress;
-    private TextInputLayout profileBbName;
-    private TextView birthDateEditText;
-    private Uri imageUrl;
-    boolean t;
-    SharedPreferences prefs;
-    boolean isBloodBank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent i = getIntent();
-        t = i.getBooleanExtra("isfromsignup",false);
-        prefs = getSharedPreferences(Constants.PREFS, MODE_PRIVATE);
-        if(!prefs.getBoolean(Constants.ISBLOODBANK,false)){
-            isBloodBank = false;
-            if (getSharedPreferences(Constants.PREFS, MODE_PRIVATE).getBoolean(Constants.DARK_THEME, false))
-                setTheme(R.style.AppTheme_Dark);
-            setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_profile);
 
-            birthDateEditText=(TextView) findViewById(R.id.birthday_text);
-            //profileEditDone=(FloatingActionButton)findViewById(R.id.profile_edit_done_fab);
-            profileName = (TextInputLayout)findViewById(R.id.profile_name);
-            profileSurname = (TextInputLayout)findViewById(R.id.profile_surname);
-            profilePhone = (TextInputLayout)findViewById(R.id.profile_phone);
-            profileBloodGroup = (TextInputLayout)findViewById(R.id.profile_blood_group);
-            profileAddress = (TextInputLayout)findViewById(R.id.profile_address);
+        user_id=Constants.ID;
+        username=Constants.USERNAME;
+        password=Constants.PASSWORD;
+        Name=(TextView)findViewById(R.id.name);
+        Email=(TextView)findViewById(R.id.email);
+        Address=(TextView)findViewById(R.id.address);
+        Phone=(TextView)findViewById(R.id.phone);
+        DOB=(TextView)findViewById(R.id.dob);
+        Sex=(TextView)findViewById(R.id.sex);
+        Group=(TextView)findViewById(R.id.group);
+        retour=(Button)findViewById(R.id.rtrn) ;
+        retour.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        openMain();
+    }
+});
 
-            locateFab = (FloatingActionButton)findViewById(R.id.locateFab);
-            locateFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        String myurl1 = Constants.IP+"getprofile"  ;
+        new ProfileActivity.MyAsyncTaskgetNews().execute(myurl1);
 
 
-                }
-            });
+    }
+    public void openMain(){
+        Intent intent = new Intent(this,MainActivity.class);
+        /*Bundle b=new Bundle();
+        b.putString("username",username);
+        b.putString("password",password);
+        //b.putString("name",obj.getString("name"));
+        b.putString("id",user_id);
+        intent.putExtras(b);*/
+        startActivity(intent);
+        this.finish();
+        startActivity(intent);
+    }
+    public void nextPage(String data){
+        try {
+            JSONObject obj = new JSONObject(data);
+            if (!obj.getString("donor_Id").equals("0")){
+                //                                                                                                                                       linda
 
-            final Calendar myCalendar = Calendar.getInstance();
+                Name.setText(obj.getString("nom"));
+                DOB.setText(obj.getString("dateNaissance"));
+                Sex.setText(obj.getString("sex"));
+                Group.setText(obj.getString("groupeSanguin"));
+                Address.setText(obj.getString("address"));
+                Phone.setText(obj.getString("numero"));
+                Email.setText(obj.getString("adresseMail"));
 
-            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                      int dayOfMonth) {
-                    // TODO Auto-generated method stub
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, monthOfYear);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    updateLabel(myCalendar);
-                }
+            }
 
-            };
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-            findViewById(R.id.birthday_button).setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    new DatePickerDialog(ProfileActivity.this, date, myCalendar
-                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            });
-            birthDateEditText.setInputType(InputType.TYPE_NULL);
-            birthDateEditText.requestFocus();
+    }
+    /*public void retour (View view ){
+       Intent i = new Intent(this,MainActivity.class);
+       // startActivity(new Intent("dz.univoran.amd.activities.MainActivity"));
+        startActivity(i);
 
-            /*profileEditDone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+    }*/
 
-                    try {
-                        startActivityForResult(builder.build(ProfileActivity.this), PLACE_PICKER_REQUEST);
-                    } catch (GooglePlayServicesRepairableException e) {
-                        e.printStackTrace();
-                    } catch (GooglePlayServicesNotAvailableException e) {
-                        e.printStackTrace();
+    public class MyAsyncTaskgetNews extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+
+            // String url="https://api.ipify.org?format=json";
+            //     stat.setText(url);
+
+        }
+        @Override
+        protected String  doInBackground(String... params) {
+            StringBuilder sb = new StringBuilder();
+
+            //String http = "http://android.schoolportal.gr/Service.svc/SaveValues";
+
+
+            HttpURLConnection urlConnection=null;
+            try {
+                URL url = new URL(params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setUseCaches(false);
+                urlConnection.setConnectTimeout(10000);
+                urlConnection.setReadTimeout(10000);
+                urlConnection.setRequestProperty("Content-Type","application/json");
+
+                //  urlConnection.setRequestProperty("Host", "android.schoolportal.gr");
+                urlConnection.connect();
+
+                //Create JSONObject here
+                JSONObject jsonParam = new JSONObject();
+
+                jsonParam.put("id", user_id);
+                jsonParam.put("username",username);
+                jsonParam.put("password", password);
+                OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
+                //System.out.print(jsonParam2);
+                out.write(jsonParam.toString());
+                out.close();
+
+                int HttpResult =urlConnection.getResponseCode();
+                if(HttpResult ==HttpURLConnection.HTTP_OK){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(
+                            urlConnection.getInputStream(),"utf-8"));
+                    String line = null;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line + "\n");
                     }
+                    br.close();
+
+                    publishProgress(sb.toString());
+                }else{
+                    publishProgress(urlConnection.getResponseMessage());
                 }
-            });*/
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+
+                e.printStackTrace();
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }finally{
+                if(urlConnection!=null)
+                    urlConnection.disconnect();
+            }
+            return null;
         }
+        protected void onProgressUpdate(String... progress) {
 
-        else{
-            isBloodBank = true;
-            setContentView(R.layout.activity_profilebloodbank);
-            profileName = (TextInputLayout)findViewById(R.id.profile_name);
-            profileSurname = (TextInputLayout)findViewById(R.id.profile_surname);
-            profileBbName = (TextInputLayout)findViewById(R.id.profile_bb_name);
-            profilePhone = (TextInputLayout)findViewById(R.id.profile_phone);
-            profileAddress = (TextInputLayout)findViewById(R.id.profile_address);
-            locateFab = (FloatingActionButton)findViewById(R.id.locateFab);
+            try {
 
-            locateFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                //    stat.setText(progress[0]
+                nextPage(progress[0]);
 
-
-
-                }
-            });
-        }
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(!t) {
-            super.onBackPressed();
-        } else Toast.makeText(this, R.string.backpress, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:
-                if (!t)
-                onBackPressed();
-                else Toast.makeText(this, R.string.backpress, Toast.LENGTH_SHORT).show();
-                break;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 
         }
-        return true;
+        protected void onPostExecute(String  result2){
+
+        }
+
+
+
+
     }
 
-    public void getPicture(View v){
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/jpeg");
-        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
-    }
 
-    private void updateLabel(Calendar myCalendar) {
 
-        String myFormat = "dd/MM/yy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        birthDateEditText.setText(sdf.format(myCalendar.getTime()));
-    }
 
 
 

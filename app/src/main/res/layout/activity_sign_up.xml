@@ -106,7 +106,7 @@
                             android:id="@+id/etemail"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="@string/prompt_email"
+                            android:hint="Username"
                             android:imeOptions="actionNext"
                             android:inputType="textEmailAddress"
                             android:maxLines="1" />

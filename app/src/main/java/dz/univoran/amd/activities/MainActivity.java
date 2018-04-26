@@ -31,11 +31,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dz.univoran.amd.Constants;
 import dz.univoran.amd.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PLACE_PICKER_REQUEST = 1;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Button fab;
     TextView header_name, header_subtext;
 
-    RecyclerView recyclerView;
+   /* RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     RecyclerView.Adapter adapter;
     ArrayList list;
@@ -51,15 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeRefreshLayout;
     SharedPreferences pref;
-    boolean bbMode;
+    boolean bbMode;*/
 
     final String requests = "notificationRequests";
     private boolean backPressFlag;
     ViewPager slidShow;
-
+    String user_id,username,password;
+Button b1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user_id= Constants.ID;
+        username=Constants.USERNAME;
+        password=Constants.PASSWORD;
 
        // pref = getSharedPreferences(Constants.PREFS, MODE_PRIVATE);
        // if (pref.getBoolean(Constants.DARK_THEME, false))
@@ -70,6 +75,16 @@ public class MainActivity extends AppCompatActivity {
        // }
 //
         setContentView(R.layout.activity_main);
+        b1=(Button)findViewById(R.id.btimport);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, SelectBloodGroup.class);
+
+                startActivity(i);
+                // MainActivity.this.finish();
+            }
+        });
       //  bbMode = pref.getBoolean(Constants.ISBLOODBANK, false);
 
      //   if(!pref.getBoolean(Constants.ISFORMFILLED,false)&&!bbMode){
@@ -99,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
         header_name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_name_view);
         header_subtext = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_subtext_view);
-        header_name.setText("Hatab Anodaz");
-        header_subtext.setText("anodaz@yahoo.com");
+        header_name.setText("Ikram Belabid");
+        header_subtext.setText("Ikram@yahoo.com");
 
     }
     public void btimport(View view){
@@ -115,6 +130,42 @@ public class MainActivity extends AppCompatActivity {
         app:srcCompat="@android:drawable/ic_dialog_email" />
 */
     }
+    public void becomedonor(View view){
+        Intent i = new Intent(MainActivity.this, Become_Donor.class);
+        //startActivity(i);
+
+        startActivity(i);
+        this.finish();
+        /*    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+*/
+    }
+    public void getprofile(View view){
+        Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+        //startActivity(i);
+        Bundle b=new Bundle();
+        b.putString("username",username);
+        b.putString("password",password);
+        //b.putString("name",obj.getString("name"));
+        b.putString("id",user_id);
+        i.putExtras(b);
+        startActivity(i);
+        this.finish();
+        /*    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+*/
+    }
+
     private void setupDrawer(){
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -135,6 +186,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.about:
                         startActivity(new Intent(MainActivity.this,AboutActivity.class));
+                        break;
+                    case R.id.logout:
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -161,6 +215,11 @@ public class MainActivity extends AppCompatActivity {
                 }, 2000);
             }
         }
+    }
+
+    public void Becom(View view) {
+        Intent i = new Intent(this, Become_Donor.class);
+        startActivity(i);
     }
 
     public class AdaptPage extends PagerAdapter{

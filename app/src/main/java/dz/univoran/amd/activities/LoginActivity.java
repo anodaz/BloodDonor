@@ -73,11 +73,16 @@ public class LoginActivity extends AppCompatActivity  {
     private String isBank;
 
     private static final int RC_SIGN_IN = 9001;
-
+    String user_id,username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+       /* Bundle b=getIntent().getExtras();
+        user_id=b.getString("id");
+        username=b.getString("username");
+        password=b.getString("password");
+*/
        // user=(AutoCompleteTextView)findViewById(R.id.email);
        // pass=(AutoCompleteTextView)findViewById(R.id.password);
         stat=(TextView)findViewById(R.id.notLogin);
@@ -89,7 +94,7 @@ public class LoginActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 ///Validate(Email.getText().toString().trim(),Password.getText().toString().trim());
-                String myurl = "http://192.168.1.40:8080/Web-service/web/Manager/login"  ;
+                String myurl = Constants.IP+"login"  ;
                 new  MyAsyncTaskgetNews().execute(myurl);
             }
         });
@@ -99,15 +104,12 @@ public class LoginActivity extends AppCompatActivity  {
     public void nextPage(String data){
         try {
             JSONObject obj = new JSONObject(data);
-            if (!obj.getString("account_id").equals("0")){
+            if (!obj.getString("id").equals("0")){
                 Intent i = new Intent(this, MainActivity.class);
-                Bundle b=new Bundle();
-                b.putString("username",obj.getString("username"));
-                b.putString("emails",obj.getString("emails"));
-                b.putString("phon",obj.getString("phon"));
-                b.putString("name",obj.getString("name"));
-                b.putString("account_id",obj.getString("account_id"));
-                i.putExtras(b);
+                Constants.USERNAME=obj.getString("user");
+                Constants.PASSWORD=obj.getString("password");
+                Constants.ID=obj.getString("id");
+
                 startActivity(i);
                 this.finish();
             }else {//
@@ -139,6 +141,7 @@ public class LoginActivity extends AppCompatActivity  {
         protected String  doInBackground(String... params) {
             StringBuilder sb = new StringBuilder();
 
+
             //String http = "http://android.schoolportal.gr/Service.svc/SaveValues";
 
 
@@ -160,7 +163,7 @@ public class LoginActivity extends AppCompatActivity  {
                 JSONObject jsonParam = new JSONObject();
                 jsonParam.put("id", "1");
                 jsonParam.put("username", Email.getText());
-                jsonParam.put("name", "null");
+               // jsonParam.put("name", "null");
                 jsonParam.put("password", Password.getText());
                 OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
                 out.write(jsonParam.toString());

@@ -27,6 +27,7 @@ import java.net.URL;
 import dz.univoran.amd.Constants;
 import dz.univoran.amd.R;
 
+
 /**
  * Created by Ikram.
  */
@@ -66,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity{
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String myurl = "http://192.168.1.40:8080/Web-service/web/Manager/AddUser"  ;
+                String myurl = Constants.IP+"AddUser"  ;
                 new MyAsyncTaskgetNews().execute(myurl);
             }
         });
@@ -76,15 +77,11 @@ public class SignUpActivity extends AppCompatActivity{
     public void nextPage(String data){
         try {
             JSONObject obj = new JSONObject(data);
-            if (!obj.getString("account_id").equals("0")){
+            if (!obj.getString("id").equals("0")){
                 Intent i = new Intent(this, MainActivity.class);
-                Bundle b=new Bundle();
-                b.putString("username",obj.getString("username"));
-                b.putString("emails",obj.getString("emails"));
-                b.putString("name",obj.getString("name"));
-                b.putString("phon",obj.getString("phon"));
-                b.putString("account_id",obj.getString("account_id"));
-                i.putExtras(b);
+                Constants.USERNAME=obj.getString("user");
+                Constants.PASSWORD=obj.getString("password");
+                Constants.ID=obj.getString("id");
                 startActivity(i);
                 this.finish();
             }else {//
