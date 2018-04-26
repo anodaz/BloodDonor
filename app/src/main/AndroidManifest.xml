@@ -144,7 +144,6 @@
             android:parentActivityName=".activities.SelectBloodGroup"
             android:theme="@style/AppTheme"/>
         <activity android:name=".activities.BloodBankActivity" />
-        <activity android:name=".activities.BloodBankItem"></activity>
     </application>
 
 </manifest>

@@ -30,7 +30,6 @@
                     android:id="@+id/profile_image"
                     android:layout_width="100dp"
                     android:layout_height="77dp"
-                    android:onClick="getPicture"
                     android:src="@drawable/user" />
 
             </RelativeLayout>

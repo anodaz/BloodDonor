@@ -44,8 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView Name,Email,Address,Phone,DOB,Sex,Group;
     String user_id,username,password;
     private Button retour;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
