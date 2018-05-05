@@ -8,7 +8,13 @@ public class Constants {
 
     public static final String PREFS = "prefs";
     public static final String LOGGED_IN = "logged_in";
-
+    public static final String PREF_NAME = "prefs";
+    public static final String KEY_REMEMBER = "remember";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_PASS = "password";
+    public static final String KEY_USERNAMEL = "usernamel";
+    public static final String KEY_PASSL = "passwordl";
+    public static final String KEY_LOGIN = "login";
     /*user*/
   //  public static final String NAME = "name";
     public static final String ADDRESS = "address";
@@ -36,6 +42,6 @@ public class Constants {
     public static final String PROFILE_IMAGE = "profile_image";
     public static final String CONTACT = "emergency_contact";
     public static final String ISFORMFILLED = "is_form_filled";
-    public static final String IP="http://192.168.43.157:8080/Web-service/web/Manager/";
+    public static final String IP="http://192.168.1.42:8080/Web-service/web/Manager/";
 
 }

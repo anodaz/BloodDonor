@@ -38,9 +38,6 @@ public class SelectBloodGroup extends AppCompatActivity {
         setContentView(R.layout.activity_select_blood_group);
 
 
-
-
-
     }
     public void testb(View view ){
         String group="A+";

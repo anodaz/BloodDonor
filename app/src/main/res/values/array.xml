@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="selec_city">
-        <item></item>
+        <item>None</item>
         <item>Oran</item>
         <item>Bechar</item>
         <item>Alger</item>
         <item>Tlemcen</item>
+        <item>Bejaia</item>
+        <item>Annaba</item>
+        <item>Tiaret</item>*
     </string-array>
     <string-array name="Months"
         >

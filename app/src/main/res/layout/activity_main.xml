@@ -31,6 +31,19 @@
                 android:background="@color/colorPrimary">
 
                 <Button
+                    android:id="@+id/logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="LOG OUT"
+                    app:layout_constraintBottom_toTopOf="@+id/slidShow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="logout"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
                     android:id="@+id/btcharts"
                     android:layout_width="121dp"
                     android:layout_height="99dp"
@@ -62,13 +75,15 @@
                     android:id="@+id/btemail"
                     android:layout_width="121dp"
                     android:layout_height="99dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginTop="40dp"
                     android:background="#00ffffff"
                     android:drawableTop="@drawable/bloodbank"
-                    android:text="Blood Banks"
                     android:onClick="bloodbank"
+                    android:text="Blood Banks"
                     android:textAppearance="@style/TextAppearance.AppCompat"
+                    app:layout_constraintBottom_toTopOf="@+id/logout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btcharts" />
 
@@ -76,6 +91,7 @@
                     android:id="@+id/btprofile"
                     android:layout_width="121dp"
                     android:layout_height="99dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="40dp"
                     android:background="#00ffffff"
@@ -83,6 +99,7 @@
                     android:onClick="getprofile"
                     android:text="Profile"
                     android:textAppearance="@style/TextAppearance.AppCompat"
+                    app:layout_constraintBottom_toTopOf="@+id/logout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btimport" />
 

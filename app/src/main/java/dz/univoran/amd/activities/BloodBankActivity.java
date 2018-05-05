@@ -47,7 +47,7 @@ public class BloodBankActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
             {
-                String url= Constants.IP+"getDonor/"+parentView.getItemAtPosition(position).toString();
+                String url= Constants.IP+"getBank/"+parentView.getItemAtPosition(position).toString();
                 new BloodBankActivity.MyAsyncTaskgetNews().execute(url);
 
             }
@@ -60,12 +60,17 @@ public class BloodBankActivity extends AppCompatActivity {
         });
     }
     public void nextPage(String data){
+
         try {
-            JSONArray objs = new JSONArray(data);
+            System.out.println("data : "+ data);
+            JSONObject obj = new JSONObject(data);
+            JSONArray objs = obj.getJSONArray("banks");
+
+
             rentalProperties.clear();
-            adapter.clear();
+           // adapter.clear();
             for (int i = 0 ; i < objs.length(); i++){
-                rentalProperties.add(new BankBlood(objs.getJSONObject(i).getInt("BloodBankId"),objs.getJSONObject(i).getString("BloodBankName"),objs.getJSONObject(i).getString("Address"),objs.getJSONObject(i).getString("Phone"),objs.getJSONObject(i).getString("City")));
+                rentalProperties.add(new BankBlood(objs.getJSONObject(i).getInt("bloodBankId"),objs.getJSONObject(i).getString("bloodBankName"),objs.getJSONObject(i).getString("address"),objs.getJSONObject(i).getString("phone"),objs.getJSONObject(i).getString("city")));
 
             }
             adapter = new BloodBankActivity.propertyArrayAdapter(this, 0, rentalProperties);

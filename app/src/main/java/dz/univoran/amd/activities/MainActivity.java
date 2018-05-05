@@ -34,7 +34,8 @@ import java.util.TimerTask;
 import dz.univoran.amd.Constants;
 import dz.univoran.amd.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener{
 
 
     DrawerLayout drawerLayout;
@@ -48,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     RecyclerView.Adapter adapter;
     ArrayList list;
-
-
     SwipeRefreshLayout swipeRefreshLayout;
     SharedPreferences pref;
     boolean bbMode;*/
@@ -116,8 +115,45 @@ Button b1;
         header_subtext = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_subtext_view);
         header_name.setText("Ikram Belabid");
         header_subtext.setText("Ikram@yahoo.com");
+        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nvView);
+
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
 
     }
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+
+        switch(item.getItemId()){
+            case R.id.home:
+                Intent i = new Intent(MainActivity.this,MainActivity.class);
+                i.putExtra("isfromsignup",false);
+                startActivity(i);
+                break;
+            case R.id.profile:
+                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                break;
+            case R.id.compatibility:
+                startActivity(new Intent(MainActivity.this,FormActivity.class));
+                break;
+            case R.id.about:
+                startActivity(new Intent(MainActivity.this,AboutActivity.class));
+                break;
+            case R.id.logout:
+                SharedPreferences sharedPreferences;
+                SharedPreferences.Editor editor;
+                sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.putBoolean(Constants.KEY_LOGIN, false);
+                editor.apply();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+        }
     public void btimport(View view){
         Intent i = new Intent(MainActivity.this, SelectBloodGroup.class);
         startActivity(i);
@@ -148,12 +184,12 @@ Button b1;
     public void getprofile(View view){
         Intent i = new Intent(MainActivity.this, ProfileActivity.class);
         //startActivity(i);
-        Bundle b=new Bundle();
+        /*Bundle b=new Bundle();
         b.putString("username",username);
         b.putString("password",password);
         //b.putString("name",obj.getString("name"));
         b.putString("id",user_id);
-        i.putExtras(b);
+        i.putExtras(b);*/
         startActivity(i);
         this.finish();
         /*    <android.support.design.widget.FloatingActionButton
@@ -225,6 +261,16 @@ Button b1;
     public void bloodbank(View view) {
         Intent i = new Intent(this, BloodBankActivity.class);
         startActivity(i);
+    }
+
+    public void logout(View view) {
+        SharedPreferences sharedPreferences;
+        SharedPreferences.Editor editor;
+        sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putBoolean(Constants.KEY_LOGIN, false);
+        editor.apply();
+        startActivity(new Intent(MainActivity.this,LoginActivity.class));
     }
 
     public class AdaptPage extends PagerAdapter{
