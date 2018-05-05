@@ -4,156 +4,47 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import dz.univoran.amd.Constants;
 import dz.univoran.amd.R;
 
-public class MainActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener{
-
-
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
-    ActionBarDrawerToggle actionBarDrawerToggle;
-    Button fab;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     TextView header_name, header_subtext;
-
-   /* RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
-    RecyclerView.Adapter adapter;
-    ArrayList list;
-    SwipeRefreshLayout swipeRefreshLayout;
-    SharedPreferences pref;
-    boolean bbMode;*/
-
-    final String requests = "notificationRequests";
-    private boolean backPressFlag;
-    ViewPager slidShow;
-    String user_id,username,password;
-Button b1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user_id= Constants.ID;
-        username=Constants.USERNAME;
-        password=Constants.PASSWORD;
-
-       // pref = getSharedPreferences(Constants.PREFS, MODE_PRIVATE);
-       // if (pref.getBoolean(Constants.DARK_THEME, false))
-        //    setTheme(R.style.AppTheme_Dark_Translucent);
-
-       // if(!pref.getBoolean(Constants.ISPROFILEFILLED,false)){
-        //    startActivity(new Intent(this, ProfileActivity.class));
-       // }
-//
         setContentView(R.layout.activity_main);
-        b1=(Button)findViewById(R.id.btimport);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SelectBloodGroup.class);
-
-                startActivity(i);
-                // MainActivity.this.finish();
-            }
-        });
-      //  bbMode = pref.getBoolean(Constants.ISBLOODBANK, false);
-
-     //   if(!pref.getBoolean(Constants.ISFORMFILLED,false)&&!bbMode){
-        //    startActivity(new Intent(this, FormActivity.class));
-       //     pref.edit().putBoolean(Constants.ISFORMFILLED, true).apply();
-       // }
-
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        drawerLayout= (DrawerLayout)findViewById(R.id.drawer_layout) ;
-        navigationView = (NavigationView) findViewById(R.id.nvView);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar, R.string.drawer_open,R.string.drawer_close);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        slidShow=(ViewPager)findViewById(R.id.slidShow);
-        Timer timer=new Timer();
-        timer.scheduleAtFixedRate(new Mytesk(),2000,4000);
-        AdaptPage adaptPage=new AdaptPage(this);
-        slidShow.setAdapter(adaptPage);
-        setupDrawer();
+        View headerView = navigationView.getHeaderView(0);
 
-
-        header_name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_name_view);
-        header_subtext = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_subtext_view);
-        header_name.setText("Ikram Belabid");
-        header_subtext.setText("Ikram@yahoo.com");
-        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nvView);
-
-        if (mNavigationView != null) {
-            mNavigationView.setNavigationItemSelectedListener(this);
-        }
-
+        header_name = (TextView) headerView.findViewById(R.id.header_name_view);
+        header_subtext = (TextView) headerView.findViewById(R.id.header_subtext_view);
+        header_name.setText(Constants.USERNAME);
+        header_subtext.setText(Constants.USERNAME+"@anodaz.com");
+        navigationView.setNavigationItemSelectedListener(this);
     }
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-
-        switch(item.getItemId()){
-            case R.id.home:
-                Intent i = new Intent(MainActivity.this,MainActivity.class);
-                i.putExtra("isfromsignup",false);
-                startActivity(i);
-                break;
-            case R.id.profile:
-                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
-                break;
-            case R.id.compatibility:
-                startActivity(new Intent(MainActivity.this,FormActivity.class));
-                break;
-            case R.id.about:
-                startActivity(new Intent(MainActivity.this,AboutActivity.class));
-                break;
-            case R.id.logout:
-                SharedPreferences sharedPreferences;
-                SharedPreferences.Editor editor;
-                sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-                editor = sharedPreferences.edit();
-                editor.putBoolean(Constants.KEY_LOGIN, false);
-                editor.apply();
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-        }
     public void btimport(View view){
         Intent i = new Intent(MainActivity.this, SelectBloodGroup.class);
         startActivity(i);
@@ -201,130 +92,74 @@ Button b1;
         app:srcCompat="@android:drawable/ic_dialog_email" />
 */
     }
-
-    private void setupDrawer(){
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.home:
-                        Intent i = new Intent(MainActivity.this,MainActivity.class);
-                        i.putExtra("isfromsignup",false);
-                        startActivity(i);
-                        break;
-                    case R.id.profile:
-                        startActivity(new Intent(MainActivity.this,ProfileActivity.class));
-                        break;
-                    case R.id.compatibility:
-                        startActivity(new Intent(MainActivity.this,FormActivity.class));
-                        break;
-                    case R.id.about:
-                        startActivity(new Intent(MainActivity.this,AboutActivity.class));
-                        break;
-                    case R.id.logout:
-                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                        break;
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawers();
-        } else {
-            if (backPressFlag)
-                finishAffinity();
-            else {
-                Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
-                backPressFlag = true;
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        backPressFlag = false;
-                    }
-                }, 2000);
-            }
-        }
-    }
-
-    public void Becom(View view) {
-        Intent i = new Intent(this, Become_Donor.class);
-        startActivity(i);
-    }
-
     public void bloodbank(View view) {
         Intent i = new Intent(this, BloodBankActivity.class);
         startActivity(i);
     }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
 
-    public void logout(View view) {
-        SharedPreferences sharedPreferences;
-        SharedPreferences.Editor editor;
-        sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        editor.putBoolean(Constants.KEY_LOGIN, false);
-        editor.apply();
-        startActivity(new Intent(MainActivity.this,LoginActivity.class));
     }
 
-    public class AdaptPage extends PagerAdapter{
-        private Context context;
-        private LayoutInflater layoutInflater;
-        private Integer [] images={R.drawable.first_pic,R.drawable.first_pic1};
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home, menu);
 
-        public AdaptPage(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public int getCount() {
-            return images.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            layoutInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view=layoutInflater.inflate(R.layout.slidshow,null);
-            ImageView imageView=(ImageView)view.findViewById(R.id.imageView);
-            imageView.setImageResource(images[position]);
-
-            ViewPager vp=(ViewPager) container;
-            vp.addView(view,0);
-            return view;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            ViewPager vp=(ViewPager) container;
-            View view=(View) object;
-            vp.removeView(view);
-        }
+        return true;
     }
-    public class Mytesk extends TimerTask{
 
-        @Override
-        public void run() {
-            MainActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (slidShow.getCurrentItem()==1){
-                        slidShow.setCurrentItem(0);
-                    }else {
-                        slidShow.setCurrentItem(1);
-                    }
-                }
-            });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.home) {
+            // Handle the camera action
+        } else if (id == R.id.home) {
+
+        } else if (id == R.id.home) {
+
+        } else if (id == R.id.home) {
+
+        } else if (id == R.id.home) {
+
+        } else if (id == R.id.logout) {
+            SharedPreferences sharedPreferences;
+            SharedPreferences.Editor editor;
+            sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+            editor = sharedPreferences.edit();
+            editor.putBoolean(Constants.KEY_LOGIN, false);
+            editor.apply();
+            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            this.finish();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
