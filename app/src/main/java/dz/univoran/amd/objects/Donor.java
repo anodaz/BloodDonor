@@ -1,7 +1,7 @@
 package dz.univoran.amd.objects;
 
 /**
- * Created by adityadesai on 01/04/17.
+ * Created by Ikram.
  */
 
 public class Donor {

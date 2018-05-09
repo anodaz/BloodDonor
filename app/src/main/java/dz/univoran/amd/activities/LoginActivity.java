@@ -69,10 +69,7 @@ public class LoginActivity extends AppCompatActivity   implements TextWatcher,
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressText;
-    private View mProgressView;
-    private View mLoginFormView;
-    AutoCompleteTextView user;
+
     AutoCompleteTextView pass;
     TextView stat;
 

@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * Created by DELL on 01/04/2017.
+ * Created by Ikram.
  */
 
 public class ConnectionChecker {

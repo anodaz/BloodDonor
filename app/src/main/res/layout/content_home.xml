@@ -12,17 +12,8 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="LOG OUT"
-            app:layout_constraintBottom_toTopOf="@+id/slidShow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+
+
 
         <Button
             android:id="@+id/btcharts"

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import dz.univoran.amd.R;
 
 /**
- * Created by DELL on 02/04/2017.
+ * Created by Ikram.
  */
 
 public class AboutActivity extends AppCompatActivity {

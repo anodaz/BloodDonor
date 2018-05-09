@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         header_name = (TextView) headerView.findViewById(R.id.header_name_view);
         header_subtext = (TextView) headerView.findViewById(R.id.header_subtext_view);
         header_name.setText(Constants.USERNAME);
-        header_subtext.setText(Constants.USERNAME+"@anodaz.com");
+        header_subtext.setText(Constants.USERNAME+"@jocker.com");
         navigationView.setNavigationItemSelectedListener(this);
     }
     public void btimport(View view){
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         //startActivity(i);
 
         startActivity(i);
-        this.finish();
+        //this.finish();
         /*    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="90dp"
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         b.putString("id",user_id);
         i.putExtras(b);*/
         startActivity(i);
-        this.finish();
+        //this.finish();
         /*    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="90dp"

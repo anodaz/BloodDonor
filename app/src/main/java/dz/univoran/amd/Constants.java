@@ -42,6 +42,6 @@ public class Constants {
     public static final String PROFILE_IMAGE = "profile_image";
     public static final String CONTACT = "emergency_contact";
     public static final String ISFORMFILLED = "is_form_filled";
-    public static final String IP="http://192.168.1.42:8080/Web-service/web/Manager/";
+    public static final String IP="http://192.168.43.157:8080/Web-service/web/Manager/";
 
 }

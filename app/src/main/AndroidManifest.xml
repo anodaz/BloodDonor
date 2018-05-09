@@ -140,6 +140,7 @@
         <activity android:name=".activities.Become_Donor" />
         <activity
             android:name=".activities.Donor_List"
+            android:label="     Select Blood Group"
             android:parentActivityName=".activities.SelectBloodGroup"
             android:theme="@style/AppTheme" />
         <activity android:name=".activities.BloodBankActivity" />
