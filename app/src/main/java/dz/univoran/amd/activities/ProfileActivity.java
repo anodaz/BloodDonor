@@ -37,7 +37,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import dz.univoran.amd.Constants;
+import dz.univoran.amd.DBSqliteCon;
 import dz.univoran.amd.R;
+import dz.univoran.amd.objects.Donor_item;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -85,11 +87,13 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void nextPage(String data){
+
         try {
             JSONObject obj = new JSONObject(data);
+            DBSqliteCon db=new DBSqliteCon(this);
             if (!obj.getString("donor_Id").equals("0")){
                 //                                                                                                                                       linda
-
+                db.addDonor(obj.getInt("donor_Id"),obj.getString("nom"),obj.getString("dateNaissance"),obj.getString("sex"),obj.getString("groupeSanguin"),obj.getString("address"),obj.getString("numero"),obj.getString("adresseMail"));
                 Name.setText(obj.getString("nom"));
                 DOB.setText(obj.getString("dateNaissance"));
                 Sex.setText(obj.getString("sex"));
@@ -101,6 +105,25 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+    public void sqlite(){
+
+        try {
+
+            DBSqliteCon db=new DBSqliteCon(this);
+            Donor_item obj=db.getProfile(Integer.parseInt(Constants.ID));
+            Name.setText(obj.getNom());
+            DOB.setText(obj.getDateNaissance());
+            Sex.setText(obj.getSex());
+            Group.setText(obj.getGroupeSanguins());
+            Address.setText(obj.getAddress());
+            Phone.setText(obj.getNumero());
+            Email.setText(obj.getEmail_Address());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -163,21 +186,14 @@ public class ProfileActivity extends AppCompatActivity {
                         sb.append(line + "\n");
                     }
                     br.close();
+                    publishProgress(sb.toString(),"online");
 
-                    publishProgress(sb.toString());
                 }else{
-                    publishProgress(urlConnection.getResponseMessage());
+                    publishProgress("","offline");
                 }
-            } catch (MalformedURLException e) {
-
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-
-                e.printStackTrace();
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            } catch (Exception e) {
+                publishProgress("","offline");
+                // e.printStackTrace();
             }finally{
                 if(urlConnection!=null)
                     urlConnection.disconnect();
@@ -187,12 +203,15 @@ public class ProfileActivity extends AppCompatActivity {
         protected void onProgressUpdate(String... progress) {
 
             try {
+                if(progress[1]=="offline"){
+                    //Toast.makeText(getApplicationContext(),"Exception : "+progress[1],Toast.LENGTH_LONG).show();
+                    sqlite();
+                }
+                else nextPage(progress[0]);
 
-                //    stat.setText(progress[0]
-                nextPage(progress[0]);
+            }  catch (Exception ex) {
+                Toast.makeText(getApplicationContext(),"Exception",Toast.LENGTH_LONG).show();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
 
         }

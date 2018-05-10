@@ -120,10 +120,13 @@ public class LoginActivity extends AppCompatActivity   implements TextWatcher,
         Password.addTextChangedListener(this);
         chkRememberMe.setOnCheckedChangeListener(this);
         if(sharedPreferences.getBoolean(Constants.KEY_LOGIN, false)){
-            username=sharedPreferences.getString(Constants.KEY_USERNAMEL,"");
-            password=sharedPreferences.getString(Constants.KEY_PASSL,"");
-            String myurl = Constants.IP+"login"  ;
-            new  MyAsyncTaskgetNews().execute(myurl);
+            Intent i = new Intent(this, MainActivity.class);
+            Constants.USERNAME=sharedPreferences.getString(Constants.KEY_USERNAME,"");
+            Constants.PASSWORD=sharedPreferences.getString(Constants.KEY_PASS,"");
+            Constants.ID=sharedPreferences.getString(Constants.KEY_ID,"");
+            editor.apply();
+            startActivity(i);
+            this.finish();
         }
        /* FileInputStream fis =null;
         try {
@@ -221,6 +224,7 @@ public class LoginActivity extends AppCompatActivity   implements TextWatcher,
                 Constants.PASSWORD=obj.getString("password");
                 Constants.ID=obj.getString("id");
                 editor.putBoolean(Constants.KEY_LOGIN, true);
+                editor.putString(Constants.KEY_ID, obj.getString("id"));
                 editor.putString(Constants.KEY_USERNAMEL, username);
                 editor.putString(Constants.KEY_PASSL, password);
                 editor.apply();

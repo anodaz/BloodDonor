@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dz.univoran.amd.Constants;
+import dz.univoran.amd.DBSqliteCon;
 import dz.univoran.amd.R;
 import dz.univoran.amd.objects.Donor_item;
 
@@ -33,8 +35,8 @@ public class Donor_List extends AppCompatActivity {
 private ArrayList<Donor_item> rentalProperties=new ArrayList<Donor_item>();
 private ArrayAdapter adapter;
 public ListView listview;
-String group;
-    String user_id,username,password;
+public String group;
+public   String user_id,username,password;
 private Button retour;
 @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ private Button retour;
         try {
             JSONObject objs = new JSONObject(data);
             JSONArray allp = objs.getJSONArray("donors");
+            DBSqliteCon db=new DBSqliteCon(this);
             for (int i = 0 ; i < allp.length(); i++){
                 /*
                  "address": "n 90 marseille",
@@ -80,8 +83,39 @@ private Button retour;
             "numero": "578923021",
             "sex": "femme"
             */
-
+                db.addDonor(allp.getJSONObject(i).getInt("donor_Id"),allp.getJSONObject(i).getString("nom"),allp.getJSONObject(i).getString("dateNaissance"),allp.getJSONObject(i).getString("sex"),allp.getJSONObject(i).getString("address"),allp.getJSONObject(i).getString("groupeSanguin"),allp.getJSONObject(i).getString("numero"),allp.getJSONObject(i).getString("adresseMail"));
                 rentalProperties.add(new Donor_item(allp.getJSONObject(i).getInt("donor_Id"),allp.getJSONObject(i).getString("nom"),allp.getJSONObject(i).getString("dateNaissance"),allp.getJSONObject(i).getString("sex"),allp.getJSONObject(i).getString("address"),allp.getJSONObject(i).getString("groupeSanguin"),allp.getJSONObject(i).getString("numero"),allp.getJSONObject(i).getString("adresseMail")));
+
+            }
+            adapter = new Donor_List.propertyArrayAdapter(this, 0, rentalProperties);
+
+            listview.setAdapter(adapter);
+            //Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_LONG).show();
+            //showDialog(rentalProperties.get(1),1);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+    public void sqlite(){
+        try {
+
+            DBSqliteCon db=new DBSqliteCon(this);
+            ArrayList<Donor_item> allp=db.selectBloodGroup(group);
+            for (int i = 0 ; i < allp.size(); i++){
+                /*
+                 "address": "n 90 marseille",
+            "adresseMail": "zaho@gmail.com",
+            "dateNaissance": "2018-03-07",
+            "donor_Id": 2,
+            "groupeSanguin": "B+",
+            "nom": "zaho",
+            "numero": "578923021",
+            "sex": "femme"
+            */
+                rentalProperties.add(allp.get(i));
 
             }
             adapter = new Donor_List.propertyArrayAdapter(this, 0, rentalProperties);
@@ -130,19 +164,14 @@ private Button retour;
                         sb.append(line + "\n");
                     }
                     br.close();
-
-                    publishProgress(sb.toString());
+                    publishProgress(sb.toString(),"online");
 
                 }else{
-                    publishProgress(urlConnection.getResponseMessage());
+                    publishProgress("","offline");
                 }
-            } catch (MalformedURLException e) {
-
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-
-                e.printStackTrace();
+            } catch (Exception e) {
+                publishProgress("","offline");
+                // e.printStackTrace();
             }finally{
                 if(urlConnection!=null)
                     urlConnection.disconnect();
@@ -152,12 +181,15 @@ private Button retour;
         protected void onProgressUpdate(String... progress) {
 
             try {
+                if(progress[1]=="offline"){
+                    //Toast.makeText(getApplicationContext(),"Exception : "+progress[1],Toast.LENGTH_LONG).show();
+                    sqlite();
+                }
+                else nextPage(progress[0]);
 
-                //    stat.setText(progress[0]);
-                nextPage(progress[0]);
+            }  catch (Exception ex) {
+                Toast.makeText(getApplicationContext(),"Exception",Toast.LENGTH_LONG).show();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
 
         }

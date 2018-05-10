@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dz.univoran.amd.Constants;
+import dz.univoran.amd.DBSqliteCon;
 import dz.univoran.amd.R;
 import dz.univoran.amd.objects.BankBlood;
 import dz.univoran.amd.objects.BloodBank;
@@ -36,6 +38,7 @@ public class BloodBankActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     public ListView listview;
     public Spinner spinner;
+    public String city;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,7 @@ public class BloodBankActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
             {
+                city=parentView.getItemAtPosition(position).toString();
                 String url= Constants.IP+"getBank/"+parentView.getItemAtPosition(position).toString();
                 new BloodBankActivity.MyAsyncTaskgetNews().execute(url);
 
@@ -59,17 +63,37 @@ public class BloodBankActivity extends AppCompatActivity {
             }
         });
     }
+    public void sqlite(){
+        try {
+
+            DBSqliteCon db=new DBSqliteCon(this);
+            ArrayList<BankBlood> objs=db.getBanks(city);
+            rentalProperties.clear();
+            // adapter.clear();
+            for (int i = 0 ; i < objs.size(); i++){
+                rentalProperties.add(objs.get(i));
+
+            }
+            adapter = new BloodBankActivity.propertyArrayAdapter(this, 0, rentalProperties);
+            listview.setAdapter(adapter);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+    }
     public void nextPage(String data){
 
         try {
             System.out.println("data : "+ data);
             JSONObject obj = new JSONObject(data);
             JSONArray objs = obj.getJSONArray("banks");
-
-
+            DBSqliteCon db=new DBSqliteCon(this);
             rentalProperties.clear();
            // adapter.clear();
             for (int i = 0 ; i < objs.length(); i++){
+                db.addBankBlood(objs.getJSONObject(i).getInt("bloodBankId"),objs.getJSONObject(i).getString("bloodBankName"),objs.getJSONObject(i).getString("address"),objs.getJSONObject(i).getString("phone"),objs.getJSONObject(i).getString("city"));
                 rentalProperties.add(new BankBlood(objs.getJSONObject(i).getInt("bloodBankId"),objs.getJSONObject(i).getString("bloodBankName"),objs.getJSONObject(i).getString("address"),objs.getJSONObject(i).getString("phone"),objs.getJSONObject(i).getString("city")));
 
             }
@@ -115,19 +139,14 @@ public class BloodBankActivity extends AppCompatActivity {
                         sb.append(line + "\n");
                     }
                     br.close();
-
-                    publishProgress(sb.toString());
+                    publishProgress(sb.toString(),"online");
 
                 }else{
-                    publishProgress(urlConnection.getResponseMessage());
+                    publishProgress("","offline");
                 }
-            } catch (MalformedURLException e) {
-
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-
-                e.printStackTrace();
+            } catch (Exception e) {
+                publishProgress("","offline");
+                // e.printStackTrace();
             }finally{
                 if(urlConnection!=null)
                     urlConnection.disconnect();
@@ -137,12 +156,15 @@ public class BloodBankActivity extends AppCompatActivity {
         protected void onProgressUpdate(String... progress) {
 
             try {
+                if(progress[1]=="offline"){
+                    //Toast.makeText(getApplicationContext(),"Exception : "+progress[1],Toast.LENGTH_LONG).show();
+                    sqlite();
+                }
+                else nextPage(progress[0]);
 
-                //    stat.setText(progress[0]);
-                nextPage(progress[0]);
+            }  catch (Exception ex) {
+                Toast.makeText(getApplicationContext(),"Exception",Toast.LENGTH_LONG).show();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
 
         }

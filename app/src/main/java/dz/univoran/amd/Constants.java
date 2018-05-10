@@ -5,9 +5,11 @@ package dz.univoran.amd;
  */
 
 public class Constants {
-
+    public static final String DBNAME = "BloodDonor.db";
+    public static final int VERSION = 1;
     public static final String PREFS = "prefs";
-    public static final String LOGGED_IN = "logged_in";
+
+    public static final String KEY_ID = "id";
     public static final String PREF_NAME = "prefs";
     public static final String KEY_REMEMBER = "remember";
     public static final String KEY_USERNAME = "username";
