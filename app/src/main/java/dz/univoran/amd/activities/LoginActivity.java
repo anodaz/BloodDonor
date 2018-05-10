@@ -183,19 +183,7 @@ public class LoginActivity extends AppCompatActivity   implements TextWatcher,
         managePrefs();
     }
     private void managePrefs(){
-        if(chkRememberMe.isChecked()){
-            editor.putString(Constants.KEY_USERNAME, Email.getText().toString().trim());
-            editor.putString(Constants.KEY_PASS, Password.getText().toString().trim());
-            editor.putString(Constants.KEY_USERNAMEL, Email.getText().toString().trim());
-            editor.putString(Constants.KEY_PASSL, Password.getText().toString().trim());
-            editor.putBoolean(Constants.KEY_REMEMBER, true);
-            editor.apply();
-        }else{
-            editor.putBoolean(Constants.KEY_REMEMBER, false);
-            editor.remove(Constants.KEY_PASS);//editor.putString(KEY_PASS,"");
-            editor.remove(Constants.KEY_USERNAME);//editor.putString(KEY_USERNAME, "");
-            editor.apply();
-        }
+
 
     }
     /*ADD THIS  TO  READ  SAVED  username & password  NEXT-TIME OPENING Application
@@ -225,9 +213,21 @@ public class LoginActivity extends AppCompatActivity   implements TextWatcher,
                 Constants.ID=obj.getString("id");
                 editor.putBoolean(Constants.KEY_LOGIN, true);
                 editor.putString(Constants.KEY_ID, obj.getString("id"));
-                editor.putString(Constants.KEY_USERNAMEL, username);
-                editor.putString(Constants.KEY_PASSL, password);
                 editor.apply();
+                if(chkRememberMe.isChecked()){
+                    editor.putString(Constants.KEY_USERNAME, Email.getText().toString().trim());
+                    editor.putString(Constants.KEY_PASS, Password.getText().toString().trim());
+                    editor.putString(Constants.KEY_USERNAMEL, Email.getText().toString().trim());
+                    editor.putString(Constants.KEY_PASSL, Password.getText().toString().trim());
+                    editor.putBoolean(Constants.KEY_REMEMBER, true);
+                    editor.apply();
+                }else{
+                    editor.putBoolean(Constants.KEY_REMEMBER, false);
+                    editor.remove(Constants.KEY_PASS);//editor.putString(KEY_PASS,"");
+                    editor.remove(Constants.KEY_USERNAME);//editor.putString(KEY_USERNAME, "");
+                    editor.apply();
+                }
+
                 /*if (chkRememberMe.isChecked())
                 {
                     String text=Constants.USERNAME+":"+Constants.PASSWORD;
