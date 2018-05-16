@@ -22,6 +22,7 @@ public class Constants {
     public static final String ADDRESS = "address";
     public static final String EMAIL = "email";
     public static final String PH = "phone";
+    public static String GROUPP = "";
     public static String USERNAME = "";
     public static String PASSWORD = "";
     public static String ID = "";
@@ -44,6 +45,6 @@ public class Constants {
     public static final String PROFILE_IMAGE = "profile_image";
     public static final String CONTACT = "emergency_contact";
     public static final String ISFORMFILLED = "is_form_filled";
-    public static final String IP="http://192.168.43.157:8080/Web-service/web/Manager/";
+    public static final String IP="http://192.168.1.9:8080/Web-service/web/Manager/";
 
 }

@@ -24,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import dz.univoran.amd.Constants;
 import dz.univoran.amd.R;
 
 public class SelectBloodGroup extends AppCompatActivity {
@@ -42,8 +43,8 @@ public class SelectBloodGroup extends AppCompatActivity {
     public void testb(View view ){
         String group="A+";
         Intent i = new Intent(SelectBloodGroup.this, Donor_List.class);
-        startActivity(i);
-        Bundle b=new Bundle();
+
+        //Bundle b=new Bundle();
         switch (view.getId()){
             case R.id.aplu:
                 group="A+";
@@ -70,8 +71,7 @@ public class SelectBloodGroup extends AppCompatActivity {
                 group="AB-";
                 break;
         }
-        b.putString("group",group);
-        i.putExtras(b);
+        Constants.GROUPP=group;
         startActivity(i);
         /*    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

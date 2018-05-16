@@ -1,7 +1,6 @@
 package dz.univoran.amd.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,13 +36,11 @@ private ArrayAdapter adapter;
 public ListView listview;
 public String group;
 public   String user_id,username,password;
-private Button retour;
-@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donor__list);
-    Bundle b=getIntent().getExtras();
-    group=b.getString("group");
+    group=Constants.GROUPP;
     user_id=Constants.ID;
     username=Constants.USERNAME;
     password=Constants.PASSWORD;

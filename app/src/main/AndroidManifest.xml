@@ -93,9 +93,7 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+
 
         <activity
             android:name=".activities.SettingsActivity"
@@ -142,8 +140,11 @@
             android:name=".activities.Donor_List"
             android:label="     Select Blood Group"
             android:parentActivityName=".activities.SelectBloodGroup"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".activities.BloodBankActivity" />
+            android:theme="@style/AppTheme" >
+    </activity>
+        <activity android:name=".activities.BloodBankActivity"
+            android:label="     Blood Bank"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_home"
